@@ -14,6 +14,91 @@ import java.io.OutputStreamWriter;
 public class List {
 	private Node head = null;
 	
+	/*
+	public Object clone(){  
+	    try{  
+	        return super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
+	}*/
+	
+	/*@Override
+	protected Object clone() throws CloneNotSupportedException {
+
+	    return super.clone();
+	}*/
+	
+	
+	public Node binarySearch2(int value, int lowerBound, int upperBound)
+	{
+		int middleElement = (lowerBound+upperBound)/2;
+		
+		if(lowerBound == upperBound)
+		{
+			if(getNode(middleElement).id == value)
+				return getNode(middleElement);
+			else
+				return null; //the element isn't in the list
+		}
+		else
+		{
+			if(getNode(middleElement).id == value)
+				return getNode(middleElement);
+			else
+				if( value < getNode(middleElement).id)
+					return binarySearch2(value, lowerBound, middleElement);
+				else
+					return binarySearch2(value, middleElement+1, upperBound);
+		}	
+	}
+	
+	
+	//STATUS: IN PROCESS
+	/*public Node binarySearch(int value)
+	{
+		//Node lowerBound = this.getHead(), upperBound = this.getTail();
+		int lowerBound = this.getHead().id, upperBound = this.getTail().id;
+		
+		while(lowerBound < upperBound)
+		{
+			int middlePoint = (lowerBound+upperBound)/2;
+			
+		}
+		
+		return null;
+	}*/
+	
+	//return the i-th  node gave a index
+	public Node getNode(int index)
+	{
+		if(index < this.sizeList())
+		{
+			Node temp = this.getHead();
+			for(int i=0; i<index; i++)
+				temp = temp.ptr;
+			
+			return temp;
+		}
+		return null;
+	}
+	
+	//get Tail
+	public Node getTail()
+	{
+		Node temp = this.getHead();
+		while(temp.ptr != null)
+			temp = temp.ptr;
+		
+		return temp;
+	}
+	
+	//return head
+	public Node getHead()
+	{
+		return this.head;
+	}
+	
 	// Tell us if the list is empty
 	public boolean emptyList(){
 		return (head!=null) ? false : true;
@@ -22,7 +107,7 @@ public class List {
 	// return the size of he list as a integer
 	public int sizeList()
 	{
-		int size = 1;
+		int size = 0;
 		if(emptyList())
 			return 0;
 		else
@@ -64,10 +149,10 @@ public class List {
 	public void addEnd(Node n)
 	{
 		if(emptyList())
-			head = n;
+			this.head = n;
 		else
 		{
-			Node temp = head;
+			Node temp = getHead();
 			while(temp.ptr != null)		
 				temp = temp.ptr;
 			temp.ptr = n;
@@ -204,5 +289,37 @@ public class List {
 				return 0;				
 		}
 	}
+	
+	
+	public List quickSort(List unsorted)
+	{
+		if(unsorted.sizeList() <= 1)
+			return unsorted;
+		else
+		{
+			Node pivot = unsorted.getHead();
+			List lessSublist = new List(), greaterSublist = new List();
+			
+			Node tmp = pivot.ptr;
+			
+			while(tmp != null)
+			{
+				if(tmp.id < pivot.id)
+					lessSublist.addEnd(tmp.clone());
+				else
+					greaterSublist.addEnd(tmp.clone());
+				
+				tmp = tmp.ptr;
+			}
+			lessSublist = quickSort(lessSublist);
+			greaterSublist = quickSort(greaterSublist);
+			
+			pivot.ptr = greaterSublist.getHead();
+			lessSublist.addEnd(pivot);
+			
+			return lessSublist;					
+		}
+	}
+	
 	
 }
