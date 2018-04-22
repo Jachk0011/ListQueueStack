@@ -13,6 +13,12 @@ public class Stack {
 
 	private Node head = null;
 	
+	//return the head
+	public Node getHead()
+	{
+		return this.head;
+	}
+	
 	// Tell us if the Stack is empty
 	public boolean emptyStack(){
 		return (head!=null) ? false : true;
@@ -27,9 +33,9 @@ public class Stack {
 		else
 		{
 			Node temp = head;
-			while(temp.ptr != null)
+			while(temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				size++;
 			}				
 			return size;
@@ -54,7 +60,7 @@ public class Stack {
 			while(temp != null)
 			{
 				br.write(temp.toString());
-				temp = temp.ptr;
+				temp = temp.ptrN;
 			} 
 			br.flush();
 			//br.close();
@@ -63,24 +69,23 @@ public class Stack {
 	}
 
 	//add at begin of the Stack the new node get as parameter.
-	public void addNodeStack(Node n)
+	public void push(Node n)
 	{
 		if(emptyStack())
-			head = n;
+			this.head = n;
 		else
 		{
-			Node temp = head;
-			head = n;
-			n.ptr = temp;
+			n.ptrN = this.getHead();
+			head = n;			
 		}
 	}
 
 	//delete head node of the Stack
-	public void deleteNodeStack()
+	public void pop()
 	{
 		@SuppressWarnings("unused")
 		Node temp = head;
-		head = head.ptr;
+		head = head.ptrN;
 		temp = null;
 		System.gc();		
 	}
@@ -95,9 +100,9 @@ public class Stack {
 			Node temp = head;
 			int position = 1;
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-			while(temp.data != data && temp.ptr != null)
+			while(temp.data != data && temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				position++;
 			}			
 			if(temp.data == data)
@@ -126,9 +131,9 @@ public class Stack {
 		{
 			Node temp = head;
 			int position = 1;			
-			while(temp.data != data && temp.ptr != null)
+			while(temp.data != data && temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				position++;
 			}
 			

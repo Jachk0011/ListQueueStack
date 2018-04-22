@@ -76,7 +76,7 @@ public class List {
 		{
 			Node temp = this.getHead();
 			for(int i=0; i<index; i++)
-				temp = temp.ptr;
+				temp = temp.ptrN;
 			
 			return temp;
 		}
@@ -87,8 +87,8 @@ public class List {
 	public Node getTail()
 	{
 		Node temp = this.getHead();
-		while(temp.ptr != null)
-			temp = temp.ptr;
+		while(temp.ptrN != null)
+			temp = temp.ptrN;
 		
 		return temp;
 	}
@@ -113,9 +113,9 @@ public class List {
 		else
 		{
 			Node temp = head;
-			while(temp.ptr != null)
+			while(temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				size++;
 			}				
 			return size;
@@ -135,7 +135,7 @@ public class List {
 			while(temp != null)
 			{
 				br.write(temp.toString());
-				temp = temp.ptr;
+				temp = temp.ptrN;
 			} 
 			br.flush();
 			//br.close();
@@ -153,10 +153,10 @@ public class List {
 		else
 		{
 			Node temp = getHead();
-			while(temp.ptr != null)		
-				temp = temp.ptr;
-			temp.ptr = n;
-			n.ptr = null;
+			while(temp.ptrN != null)		
+				temp = temp.ptrN;
+			temp.ptrN = n;
+			n.ptrN = null;
 		}				
 	}
 	
@@ -169,7 +169,7 @@ public class List {
 		{
 			Node temp = head;
 			head = n;
-			n.ptr = temp;
+			n.ptrN = temp;
 		}
 	}
 
@@ -187,9 +187,9 @@ public class List {
 			Node temp = head;
 			
 			for(int i=0; i<position-2; i++)
-				temp = temp.ptr;
-			n.ptr = temp.ptr;
-			temp.ptr = n;
+				temp = temp.ptrN;
+			n.ptrN = temp.ptrN;
+			temp.ptrN = n;
 		}			
 	}
 
@@ -200,7 +200,7 @@ public class List {
 	{
 		@SuppressWarnings("unused")
 		Node temp = head;
-		head = head.ptr;
+		head = head.ptrN;
 		temp = null;
 		System.gc();		
 	}
@@ -208,9 +208,9 @@ public class List {
 	//delete tail node
 	public void deleteEndList(){
 		Node temp = head;
-		while(temp.ptr.ptr != null)
-			temp = temp.ptr;		
-		temp.ptr = null;		
+		while(temp.ptrN.ptrN != null)
+			temp = temp.ptrN;		
+		temp.ptrN = null;		
 		System.gc();
 	}
 
@@ -226,10 +226,10 @@ public class List {
 		else{
 			Node temp = head, garbage;
 			for(int i=1; i<position-1; i++)
-				temp = temp.ptr;
-			garbage = temp.ptr;
-			temp.ptr = temp.ptr.ptr;
-			garbage.ptr = null;
+				temp = temp.ptrN;
+			garbage = temp.ptrN;
+			temp.ptrN = temp.ptrN.ptrN;
+			garbage.ptrN = null;
 			System.gc();
 		}
 		
@@ -247,9 +247,9 @@ public class List {
 			Node temp = head;
 			int position = 1;
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-			while(temp.data != data && temp.ptr != null)
+			while(temp.data != data && temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				position++;
 			}			
 			if(temp.data == data)	
@@ -277,9 +277,9 @@ public class List {
 		{
 			Node temp = head;
 			int position = 1;			
-			while(temp.data != data && temp.ptr != null)
+			while(temp.data != data && temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				position++;
 			}
 			
@@ -300,7 +300,7 @@ public class List {
 			Node pivot = unsorted.getHead();
 			List lessSublist = new List(), greaterSublist = new List();
 			
-			Node tmp = pivot.ptr;
+			Node tmp = pivot.ptrN;
 			
 			while(tmp != null)
 			{
@@ -309,12 +309,12 @@ public class List {
 				else
 					greaterSublist.addEnd(tmp.clone());
 				
-				tmp = tmp.ptr;
+				tmp = tmp.ptrN;
 			}
 			lessSublist = quickSort(lessSublist);
 			greaterSublist = quickSort(greaterSublist);
 			
-			pivot.ptr = greaterSublist.getHead();
+			pivot.ptrN = greaterSublist.getHead();
 			lessSublist.addEnd(pivot);
 			
 			return lessSublist;					

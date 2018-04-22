@@ -3,17 +3,22 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /***********************************************************************************
-*
-* WARNING: ALL THE METHODS IS BASED IN THE POSITION OF THE QUEUE NOT IN THE INDEX
+* 
+*WARNING: ALL THE METHODS IS BASED IN THE POSITION OF THE QUEUE NOT IN THE INDEX
 * 
 ***********************************************************************************/
 
 public class Queue {
 	private Node head = null;
 		
+	public Node getHead()
+	{
+		return this.head;
+	}
+	
 	// Tell us if the Queue is empty
 	public boolean emptyQueue(){
-		return (head!=null) ? false : true;
+		return (this.head!=null) ? false : true;
 	}
 	
 	// return the size of he Queue as a integer
@@ -25,9 +30,9 @@ public class Queue {
 		else
 		{
 			Node temp = head;
-			while(temp.ptr != null)
+			while(temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				size++;
 			}				
 			return size;
@@ -47,7 +52,7 @@ public class Queue {
 			while(temp != null)
 			{
 				br.write(temp.toString());
-				temp = temp.ptr;
+				temp = temp.ptrN;
 			} 
 			br.flush();
 			//br.close();
@@ -57,27 +62,26 @@ public class Queue {
 
 	
 	
-	// add node to Queue the new node get as parameter. Also check if the Queue is Empty 
-	public void addNodeQueue(Node n)
+	// add to Queue the new node get as parameter, according with FIFO 
+	public void enqueue(Node n)
 	{
 		if(emptyQueue())
-			head = n;
+			this.head = n;
 		else
 		{
 			Node temp = head;
-			while(temp.ptr != null)		
-				temp = temp.ptr;
-			temp.ptr = n;
-			n.ptr = null;
+			while(temp.ptrN != null)		
+				temp = temp.ptrN;
+			temp.ptrN = n;
+			n.ptrN = null;
 		}				
 	}
 	
-	//delete node of Queue
-	public void deleteNodeQueue(){
-		Node temp = head;
-		while(temp.ptr.ptr != null)
-			temp = temp.ptr;		
-		temp.ptr = null;		
+	//delete the head of Queue according with FIFO
+	public void dequeue(){
+		Node temp = getHead();
+		this.head = getHead().ptrN;				
+		temp.ptrN = null;		
 		System.gc();
 	}
 
@@ -91,9 +95,9 @@ public class Queue {
 			Node temp = head;
 			int position = 1;
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-			while(temp.data != data && temp.ptr != null)
+			while(temp.data != data && temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				position++;
 			}			
 			if(temp.data == data)	
@@ -120,9 +124,9 @@ public class Queue {
 		{
 			Node temp = head;
 			int position = 1;			
-			while(temp.data != data && temp.ptr != null)
+			while(temp.data != data && temp.ptrN != null)
 			{
-				temp = temp.ptr;
+				temp = temp.ptrN;
 				position++;
 			}
 			

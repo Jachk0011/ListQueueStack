@@ -3,7 +3,7 @@ public class Node {
 	public int id;//it's unique
 	public int data;
 	public String text;
-	public Node ptr;
+	public Node ptrN;
 	
 	//CONSTRUCTORS 
 	public Node (){}
